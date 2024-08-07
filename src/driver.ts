@@ -65,6 +65,7 @@ export function driver(options: Config = {}): Driver {
   }
 
   function moveNext() {
+    setState("isNextStepCalled", true);
     const activeIndex = getState("activeIndex");
     const steps = getConfig("steps") || [];
     if (typeof activeIndex === "undefined") {
@@ -80,6 +81,7 @@ export function driver(options: Config = {}): Driver {
   }
 
   function movePrevious() {
+    setState("isPreviousStepCalled", true);
     const activeIndex = getState("activeIndex");
     const steps = getConfig("steps") || [];
     if (typeof activeIndex === "undefined") {
@@ -177,6 +179,7 @@ export function driver(options: Config = {}): Driver {
 
   function drive(stepIndex: number = 0) {
     const steps = getConfig("steps");
+
     if (!steps) {
       console.error("No steps to drive through");
       destroy();
@@ -185,7 +188,6 @@ export function driver(options: Config = {}): Driver {
 
     if (!steps[stepIndex]) {
       destroy();
-
       return;
     }
 
@@ -234,12 +236,16 @@ export function driver(options: Config = {}): Driver {
               if (!hasNextStep) {
                 destroy();
               } else {
+                setState("isNextStepCalled", true);
+                setState("isPreviousStepCalled", false);
                 drive(stepIndex + 1);
               }
             },
         onPrevClick: onPrevClick
           ? onPrevClick
           : () => {
+              setState("isPreviousStepCalled", true);
+              setState("isNextStepCalled", false);
               drive(stepIndex - 1);
             },
         onCloseClick: onCloseClick
@@ -259,9 +265,6 @@ export function driver(options: Config = {}): Driver {
     const activeOnDestroyed = getState("__activeOnDestroyed");
 
     const onDestroyStarted = getConfig("onDestroyStarted");
-    // `onDestroyStarted` is used to confirm the exit of tour. If we trigger
-    // the hook for when user calls `destroy`, driver will get into infinite loop
-    // not causing tour to be destroyed.
     if (withOnDestroyStartedHook && onDestroyStarted) {
       const isActiveDummyElement = !activeElement || activeElement?.id === "driver-dummy-element";
       onDestroyStarted(isActiveDummyElement ? undefined : activeElement, activeStep!, {
