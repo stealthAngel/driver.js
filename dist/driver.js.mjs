@@ -473,6 +473,7 @@ function _e(e = {}) {
     a === "nextStep" && i();
   }
   function i() {
+    y("isNextStepCalled", !0);
     const a = l("activeIndex"), c = s("steps") || [];
     if (typeof a == "undefined")
       return;
@@ -480,6 +481,7 @@ function _e(e = {}) {
     c[p] ? v(p) : g();
   }
   function d() {
+    y("isPreviousStepCalled", !0);
     const a = l("activeIndex"), c = s("steps") || [];
     if (typeof a == "undefined")
       return;
