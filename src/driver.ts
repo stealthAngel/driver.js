@@ -227,6 +227,9 @@ export function driver(options: Config = {}) {
         ...(currentStep?.popover || {}),
       },
     });
+
+    setState("isNextStepCalled", false);
+    setState("isPreviousStepCalled", false);
   }
 
   function destroy(withOnDestroyStartedHook = true) {
