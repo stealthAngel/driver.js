@@ -206,7 +206,9 @@ export function driver(options: Config = {}) {
         onNextClick: onNextClick
           ? onNextClick
           : () => {
+              console.log("Next button clicked");
               setState("isNextStepCalled", true);
+              console.log("isNextStepCalled set to true", getState("isNextStepCalled"));
               if (!hasNextStep) {
                 destroy();
               } else {
@@ -216,7 +218,9 @@ export function driver(options: Config = {}) {
         onPrevClick: onPrevClick
           ? onPrevClick
           : () => {
+              console.log("Previous button clicked");
               setState("isPreviousStepCalled", true);
+              console.log("isPreviousStepCalled set to true", getState("isPreviousStepCalled"));
               drive(stepIndex - 1);
             },
         onCloseClick: onCloseClick

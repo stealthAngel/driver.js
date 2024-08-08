@@ -548,10 +548,10 @@ function _e(e = {}) {
         showProgress: S,
         progressText: P,
         onNextClick: k || (() => {
-          y("isNextStepCalled", !0), w ? v(a + 1) : g();
+          console.log("Next button clicked"), y("isNextStepCalled", !0), console.log("isNextStepCalled set to true", l("isNextStepCalled")), w ? v(a + 1) : g();
         }),
         onPrevClick: T || (() => {
-          y("isPreviousStepCalled", !0), v(a - 1);
+          console.log("Previous button clicked"), y("isPreviousStepCalled", !0), console.log("isPreviousStepCalled set to true", l("isPreviousStepCalled")), v(a - 1);
         }),
         onCloseClick: E || (() => {
           g();
