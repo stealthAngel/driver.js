@@ -210,6 +210,7 @@ export function driver(options: Config = {}) {
                 destroy();
               } else {
                 setState("isNextStepCalled", true);
+                setState("isPreviousStepCalled", false);
                 drive(stepIndex + 1);
               }
             },
@@ -217,6 +218,7 @@ export function driver(options: Config = {}) {
           ? onPrevClick
           : () => {
               setState("isPreviousStepCalled", true);
+              setState("isNextStepCalled", false);
               drive(stepIndex - 1);
             },
         onCloseClick: onCloseClick
@@ -227,9 +229,6 @@ export function driver(options: Config = {}) {
         ...(currentStep?.popover || {}),
       },
     });
-
-    setState("isNextStepCalled", false);
-    setState("isPreviousStepCalled", false);
   }
 
   function destroy(withOnDestroyStartedHook = true) {

@@ -55,7 +55,6 @@ export function refreshActiveHighlight() {
   repositionPopover(activeHighlight, activeStep);
 }
 
-
 function transferHighlight(toElement: Element, toStep: DriveStep) {
   const duration = 400;
   const start = Date.now();

@@ -550,17 +550,17 @@ function _e(e = {}) {
         showProgress: S,
         progressText: P,
         onNextClick: k || (() => {
-          w ? (y("isNextStepCalled", !0), v(a + 1)) : g();
+          w ? (y("isNextStepCalled", !0), y("isPreviousStepCalled", !1), v(a + 1)) : g();
         }),
         onPrevClick: T || (() => {
-          y("isPreviousStepCalled", !0), v(a - 1);
+          y("isPreviousStepCalled", !0), y("isNextStepCalled", !1), v(a - 1);
         }),
         onCloseClick: E || (() => {
           g();
         }),
         ...(p == null ? void 0 : p.popover) || {}
       }
-    }), y("isNextStepCalled", !1), y("isPreviousStepCalled", !1);
+    });
   }
   function g(a = !0) {
     const c = l("__activeElement"), p = l("__activeStep"), w = l("__activeOnDestroyed"), u = s("onDestroyStarted");
