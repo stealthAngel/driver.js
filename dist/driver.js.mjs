@@ -473,7 +473,6 @@ function _e(e = {}) {
     a === "nextStep" && i();
   }
   function i() {
-    y("isNextStepCalled", !0);
     const a = l("activeIndex"), c = s("steps") || [];
     if (typeof a == "undefined")
       return;
@@ -481,7 +480,6 @@ function _e(e = {}) {
     c[p] ? v(p) : g();
   }
   function d() {
-    y("isPreviousStepCalled", !0);
     const a = l("activeIndex"), c = s("steps") || [];
     if (typeof a == "undefined")
       return;
@@ -550,7 +548,7 @@ function _e(e = {}) {
         showProgress: S,
         progressText: P,
         onNextClick: k || (() => {
-          w ? (y("isNextStepCalled", !0), v(a + 1)) : g();
+          y("isNextStepCalled", !0), w ? v(a + 1) : g();
         }),
         onPrevClick: T || (() => {
           y("isPreviousStepCalled", !0), v(a - 1);

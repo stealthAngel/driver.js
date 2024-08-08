@@ -40,7 +40,6 @@ export function driver(options: Config = {}) {
   }
 
   function moveNext() {
-    setState("isNextStepCalled", true);
     const activeIndex = getState("activeIndex");
     const steps = getConfig("steps") || [];
     if (typeof activeIndex === "undefined") {
@@ -56,7 +55,6 @@ export function driver(options: Config = {}) {
   }
 
   function movePrevious() {
-    setState("isPreviousStepCalled", true);
     const activeIndex = getState("activeIndex");
     const steps = getConfig("steps") || [];
     if (typeof activeIndex === "undefined") {
@@ -152,6 +150,7 @@ export function driver(options: Config = {}) {
 
   function drive(stepIndex: number = 0) {
     const steps = getConfig("steps");
+
     if (!steps) {
       console.error("No steps to drive through");
       destroy();
@@ -160,13 +159,11 @@ export function driver(options: Config = {}) {
 
     if (!steps[stepIndex]) {
       destroy();
-
       return;
     }
 
     setState("isNextStepCalled", false);
     setState("isPreviousStepCalled", false);
-
     setState("__activeOnDestroyed", document.activeElement as HTMLElement);
     setState("activeIndex", stepIndex);
 
@@ -209,10 +206,10 @@ export function driver(options: Config = {}) {
         onNextClick: onNextClick
           ? onNextClick
           : () => {
+              setState("isNextStepCalled", true);
               if (!hasNextStep) {
                 destroy();
               } else {
-                setState("isNextStepCalled", true);
                 drive(stepIndex + 1);
               }
             },
